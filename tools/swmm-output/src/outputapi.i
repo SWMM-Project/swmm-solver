@@ -236,60 +236,56 @@ SMO_nodeAttribute, SMO_linkAttribute, SMO_systemAttribute};
 int DLLEXPORT SMO_open(SMO_Handle p_handle, const char* path);\
 
 int DLLEXPORT SMO_getVersion(SMO_Handle p_handle, int* version);
-int DLLEXPORT SMO_getProjectSize(SMO_Handle p_handle, int** elementCount, int* length);
+int DLLEXPORT SMO_getProjectSize(SMO_Handle p_handle, int** int_out, int* int_dim);
 int DLLEXPORT SMO_getFlowUnits(SMO_Handle p_handle, int* unitFlag);
-int DLLEXPORT SMO_getPollutantUnits(SMO_Handle p_handle, int** unitFlag, int* length);
+int DLLEXPORT SMO_getPollutantUnits(SMO_Handle p_handle, int** int_out, int* int_dim);
 int DLLEXPORT SMO_getStartDate(SMO_Handle p_handle, double* date);
 int DLLEXPORT SMO_getTimes(SMO_Handle p_handle, SMO_time code, int* time);
 int DLLEXPORT SMO_getElementName(SMO_Handle p_handle, SMO_elementType type,
         int elementIndex, char** elementName);
 
 int DLLEXPORT SMO_getSubcatchSeries(SMO_Handle p_handle, int subcatchIndex,
-    SMO_subcatchAttribute attr, int startPeriod, int endPeriod, float** outValueSeries, int* dim);
+    SMO_subcatchAttribute attr, int startPeriod, int endPeriod, float** outValueSeries, int* int_dim);
 int DLLEXPORT SMO_getNodeSeries(SMO_Handle p_handle, int nodeIndex, SMO_nodeAttribute attr,
-    int startPeriod, int endPeriod, float** outValueSeries, int* dim);
+    int startPeriod, int endPeriod, float** outValueSeries, int* int_dim);
 int DLLEXPORT SMO_getLinkSeries(SMO_Handle p_handle, int linkIndex, SMO_linkAttribute attr,
-    int startPeriod, int endPeriod, float** outValueSeries, int* dim);
+    int startPeriod, int endPeriod, float** outValueSeries, int* int_dim);
 int DLLEXPORT SMO_getSystemSeries(SMO_Handle p_handle, SMO_systemAttribute attr,
-    int startPeriod, int endPeriod, float** outValueSeries, int* dim);
+    int startPeriod, int endPeriod, float** outValueSeries, int* int_dim);
 
 int DLLEXPORT SMO_getSubcatchAttribute(SMO_Handle p_handle, int timeIndex,
-    SMO_subcatchAttribute attr, float** outValueArray, int* length);
+    SMO_subcatchAttribute attr, float** outValueArray, int* int_dim);
 int DLLEXPORT SMO_getNodeAttribute(SMO_Handle p_handle, int timeIndex,
-    SMO_nodeAttribute attr, float** outValueArray, int* length);
+    SMO_nodeAttribute attr, float** outValueArray, int* int_dim);
 int DLLEXPORT SMO_getLinkAttribute(SMO_Handle p_handle, int timeIndex,
-    SMO_linkAttribute attr, float** outValueArray, int* length);
+    SMO_linkAttribute attr, float** outValueArray, int* int_dim);
 int DLLEXPORT SMO_getSystemAttribute(SMO_Handle p_handle, int timeIndex,
-    SMO_systemAttribute attr, float** outValueArray, int* length);
+    SMO_systemAttribute attr, float** outValueArray, int* int_dim);
 
 int DLLEXPORT SMO_getSubcatchResult(SMO_Handle p_handle, long timeIndex,
-    int subcatchIndex, float** outValueArray, int* arrayLength);
+    int subcatchIndex, float** outValueArray, int* int_dim);
 int DLLEXPORT SMO_getNodeResult(SMO_Handle p_handle, long timeIndex,
-    int nodeIndex, float** outValueArray, int* arrayLength);
+    int nodeIndex, float** outValueArray, int* int_dim);
 int DLLEXPORT SMO_getLinkResult(SMO_Handle p_handle, long timeIndex,
-    int linkIndex, float** outValueArray, int* arrayLength);
+    int linkIndex, float** outValueArray, int* int_dim);
 int DLLEXPORT SMO_getSystemResult(SMO_Handle p_handle, long timeIndex,
-    int dummyIndex, float** outValueArray, int* arrayLength);
+    int dummyIndex, float** outValueArray, int* int_dim);
 
 %exception;        
 
 /* NO EXCEPTION HANDLING FOR THESE FUNCTIONS */        
-int DLLEXPORT SMO_init(SMO_Handle* p_handle);
-int DLLEXPORT SMO_close(SMO_Handle* p_handle);
+int DLLEXPORT SMO_init(SMO_Handle* p_handle_out);
+int DLLEXPORT SMO_close(SMO_Handle* p_handle_out);
 void DLLEXPORT SMO_free(void** array);
 
-void DLLEXPORT SMO_clearError(SMO_Handle p_handle_in);
-int DLLEXPORT SMO_checkError(SMO_Handle p_handle_in, char** msg_buffer);
+void DLLEXPORT SMO_clearError(SMO_Handle p_handle);
+int DLLEXPORT SMO_checkError(SMO_Handle p_handle, char** msg_buffer);
 
 
 /* CODE ADDED DIRECTLY TO SWIGGED INTERFACE MODULE */
 %pythoncode%{
 import enum
 
-class ElementType(enum.Enum):
-    NODE = ENR_node
-    LINK = ENR_link
-    
 class Unit(enum.Enum):
     FLOW_UNIT = flow_rate
     CONC_UNIT = concentration
