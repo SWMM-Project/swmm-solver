@@ -102,8 +102,8 @@ typedef enum {
   extern "C" {
 #endif
 
-int DLLEXPORT SMO_init(SMO_Handle* p_handle);
-int DLLEXPORT SMO_close(SMO_Handle* p_handle);
+int DLLEXPORT SMO_init(SMO_Handle* p_handle_out);
+int DLLEXPORT SMO_close(SMO_Handle* p_handle_out);
 int DLLEXPORT SMO_open(SMO_Handle p_handle, const char* path);
 int DLLEXPORT SMO_getVersion(SMO_Handle p_handle, int* version);
 int DLLEXPORT SMO_getProjectSize(SMO_Handle p_handle, int** elementCount, int* length);
