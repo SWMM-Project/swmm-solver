@@ -32,9 +32,18 @@ if(MSVC)
     set(CMAKE_EXE_LINKER_FLAGS "/LTCG")
 endif(MSVC)
 
+# Sets compiler flags for floating point operations for CLANG
+if(APPLE)
+    set(CMAKE_C_FLAGS_DEBUG "-O0")
+    set(CMAKE_C_FLAGS_RELEASE "-Ofast")
+
+endif(APPLE)
 
 # Set compiler flags when building on UNIX. 
 if(UNIX AND NOT APPLE)
+        set(CMAKE_C_FLAGS_RELEASE "--ffast-math")
+        set(CMAKE_CXX_FLAGS_RELEASE "--ffast-math")
+
 	set(CMAKE_C_FLAGS "-fopenmp")
 	set(CMAKE_CXX_FLAGS "-std=c++11 -fopenmp -Wno-write-strings")
     # add_definitions(-std=c99)
