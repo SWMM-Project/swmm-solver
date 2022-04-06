@@ -20,10 +20,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2016, ubuntu-16.04, macos-10.15]
+        os: [windows-2019, ubuntu-16.04, macos-10.15]
         requirements: [requirements-swmm.txt]
         include:
-          - os: windows-2016
+          - os: windows-2019
             sys_pkgs: choco install boost-msvc-14.1
             build_unit_test: make.cmd -t -g "Visual Studio 15 2017 Win64"
             build_reg_test:  make.cmd -g "Visual Studio 15 2017 Win64"
